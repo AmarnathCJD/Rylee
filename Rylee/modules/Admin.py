@@ -70,5 +70,11 @@ async def admeene(event):
  mentions += "\n\nNote: These values are up-to-date"
  await event.reply(mentions)
             
-
+__help__ = """
+**Admin Commands:**
+- /promote: promote a user.
+- /demote: demotes a user.
+- /superpromote: promotes a user with full rights except anonymous.
+- /adminlist: shows the admins of the chat.
+"""
 
