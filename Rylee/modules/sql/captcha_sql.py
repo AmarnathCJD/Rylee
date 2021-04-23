@@ -3,19 +3,22 @@ from Rylee.modules.sql import BASE, SESSION
 from sqlalchemy import Boolean, Column, Integer, String, UnicodeText
 
 class Captcha(BASE):
-    __tablename__ = "ct"
-    chat_id = Column(String(14), primary_key=True)
-    mode = Column(UnicodeText)
+    __tablename__ = "clla"
+
+    chat_id = Column(Integer, primary_key=True)
+    mode = Column(Boolean)
     time = Column(Integer)
     style = Column(UnicodeText)
-    
-    def __init__(self, chat_id, mode, time, style):
+
+    def __init__(self, chat_id, mode=True, time=0, style="button"):
         self.chat_id = chat_id
         self.mode = mode
         self.time = time
         self.style = style
-        
-        
+
+    def __repr__(self):
+        return "{}".format(self.chat_id)
+
 Captcha.__table__.create(checkfirst=True)
 
 C_LOCK = threading.RLock()
@@ -24,13 +27,14 @@ CAPTCHA_CHAT = {}
 def set_captcha(chat_id, style):
  with C_LOCK:
   global CAPTCHA_CHAT
-  captcha = Captcha(
-            chat_id,
-            "on",
-            0,
-            style,
-  )
-  SESSION.add(captcha)
+  curr = SESSION.query(Captcha).get(chat_id)
+  if not curr:
+      curr = Captcha(chat_id, True, 0, style)
+  else:
+      curr.mode = True
+      curr.time = 0
+      curr.style = style
+  SESSION.add(curr)
   SESSION.commit()
   CAPTCHA_CHAT = {
     "chat_id": chat_id,
@@ -38,7 +42,7 @@ def set_captcha(chat_id, style):
     "time": 0,
     "style": style,
   }
-  return captcha
+  return curr
   
 def update_style(chat_id, style):
  with C_LOCK:
