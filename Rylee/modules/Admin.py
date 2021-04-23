@@ -10,5 +10,5 @@ async def _(event, perm):
  if not perm.add_admins:
       return await event.reply("You are missing the following rights to use this command:CanAddAdmins!")
  user, title = await get_user(event)
- await event.respond(f"{user.first_name}")
+ await event.respond(f"Promoted **{user.first_name}** in **{event.chat.title}**!")
  
