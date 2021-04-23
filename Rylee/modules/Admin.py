@@ -58,7 +58,7 @@ async def admeene(event):
       return await event.reply("This command is made to be used in group chats, not in pm!")
  if not await ck_admin(event, BOT_ID):
       return
- mentions = f"Admins in <b>{event.chat.title}</b>:"
+ mentions = f"Admins in **{event.chat.title}:**\n"
  async for user in tbot.iter_participants(
             event.chat_id, filter=ChannelParticipantsAdmins
         ):
@@ -67,7 +67,7 @@ async def admeene(event):
                 link_unf = '-@{}'
                 link = link_unf.format(user.username)
                 mentions += f"\n{link}"
- mentions += "\nNote: These values are up-to-date"
+ mentions += "\n\nNote: These values are up-to-date"
  await event.reply(mentions)
             
 
