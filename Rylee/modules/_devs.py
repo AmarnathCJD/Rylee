@@ -14,7 +14,8 @@ async def ss(event):
  user = await get_user(event)
  user_id = user.id
  try:
-   fname = (tbot.get_entity(user.id)).first_name
+   name = await tbot.get_entity(user.id)
+   fname = name.first_name
  except:
    fname = "User"
  if user_id == OWNER_ID or user_id == BOT_ID:
@@ -33,7 +34,8 @@ async def ss(event):
  user = await get_user(event)
  user_id = user.id
  try:
-   fname = (tbot.get_entity(user.id)).first_name
+   name = await tbot.get_entity(user.id)
+   fname = name.first_name
  except:
    fname = "User"
  if user_id == OWNER_ID or user_id == BOT_ID:
