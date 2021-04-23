@@ -4,7 +4,6 @@ from Rylee.events import is_admin
 from Rylee.Function import can_promote_users, get_user
 from telethon import events
 
-
 @tbot.on(events.NewMessage(pattern="^[!/?]promote ?(.*)"))
 @is_admin
 async def _(event, perm):
