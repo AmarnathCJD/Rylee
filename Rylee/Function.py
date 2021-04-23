@@ -23,7 +23,7 @@ async def get_user(event):
             user_obj = await tbot.get_entity(user)
         except (TypeError, ValueError) as err:
             await event.reply(str(err))
-            return None
+            return
 
     return user_obj, extra
 
