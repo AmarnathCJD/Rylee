@@ -8,7 +8,7 @@ from telethon import events
 from telethon.tl import functions
 from telethon.tl import types
 
-from Evie import CMD_LIST, LOAD_PLUG, tbot
+from Rylee import CMD_LIST, LOAD_PLUG, tbot
 import glob
 import sys
 
