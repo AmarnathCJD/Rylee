@@ -7,7 +7,7 @@ import asyncio
 from telethon import events
 import traceback
 
-@tbot.on(events.NewMessage(pattern="^[!/?]addsudo ?(.*)")
+@tbot.on(events.NewMessage(pattern="^[!/?]addsudo ?(.*)"))
 async def ss(event):
  if not event.sender_id == OWNER_ID:
    return
@@ -30,7 +30,7 @@ async def ss(event):
  sql.set_sudo(user_id, fname)
  SUDO_USERS.append(user_id)
 
-@tbot.on(events.NewMessage(pattern="^[!/?]remsudo ?(.*)")
+@tbot.on(events.NewMessage(pattern="^[!/?]remsudo ?(.*)"))
 async def ss(event):
  if not event.sender_id == OWNER_ID:
    return
