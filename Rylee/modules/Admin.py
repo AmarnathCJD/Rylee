@@ -4,7 +4,7 @@ from Rylee.events import is_admin
 from Rylee.Function import can_promote_users, get_user, ck_admin
 from telethon import events, Button
 from telethon.tl.functions.channels import EditAdminRequest
-from telethon.tl.types import ChatAdminRights
+from telethon.tl.types import ChatAdminRights, ChannelParticipantsAdmins
 
 @tbot.on(events.NewMessage(pattern="^[!/?]promote ?(.*)"))
 @is_admin
