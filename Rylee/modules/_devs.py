@@ -11,7 +11,7 @@ import traceback
 async def ss(event):
  if not event.sender_id == OWNER_ID:
    return
- user = await get_user(event)
+ user, arg = await get_user(event)
  user_id = user.id
  try:
    name = await tbot.get_entity(user.id)
@@ -31,7 +31,7 @@ async def ss(event):
 async def ss(event):
  if not event.sender_id == OWNER_ID:
    return
- user = await get_user(event)
+ user, arg = await get_user(event)
  user_id = user.id
  try:
    name = await tbot.get_entity(user.id)
