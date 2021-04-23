@@ -79,7 +79,7 @@ async def admeene(event):
 
 @tbot.on(events.NewMessage(pattern="^[!?/]invitelink"))
 @is_admin
-async def link(event):
+async def link(event, perm):
  if event.is_private:
     return await event.reply("This cmd is made to be used in groups, not in PM!")
  link = await tbot(ExportChatInviteRequest(event.chat_id))
