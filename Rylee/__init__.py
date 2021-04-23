@@ -3,15 +3,16 @@ from logging import basicConfig, INFO, getLogger
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 StartTime = time.time()
+import Evie.modules.sql.elevated_sql as sql
 
 CMD_LIST = {}
 CMD_HELP = {}
 LOAD_PLUG = {}
+SUDO_USERS = []
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
-
 LOGGER = logging.getLogger(__name__)
 ENV = bool(os.environ.get("ENV", True))
 
@@ -52,5 +53,8 @@ if ENV:
     except BaseException:
         print("Invalid STRING SESSION!")
         sys.exit(1)
+    Elevated = sql.SUDO_USERS
+    for x in Elevated:
+      SUDO_USERS.append(x)
 else:
     sys.exit(1)
