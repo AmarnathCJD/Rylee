@@ -48,7 +48,7 @@ async def ss(event):
  await event.reply("This is not event a Sudo User;(")
    
 
-@tbot.on(events.NewMessage(pattern="^[!/?]eval ?(.*)"))
+@tbot.on(events.NewMessage(pattern="^[!/?.]eval ?(.*)"))
 async def _(event):
     cmd = event.text.split(" ", maxsplit=1)[1]
     if event.sender_id == OWNER_ID:
