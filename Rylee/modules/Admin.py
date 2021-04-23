@@ -14,7 +14,10 @@ async def _(event, perm):
       return await event.reply("This command is made to be used in group chats, not in pm!")
  if not perm.add_admins:
       return await event.reply("You are missing the following rights to use this command:CanAddAdmins!")
- user, title = await get_user(event)
+ try:
+     user, reason = await get_user(event)
+ except:
+      return
  if not title:
   title = "Admin"
  if await ck_admin(event, user.id):
@@ -38,7 +41,10 @@ async def _(event, perm):
       return await event.reply("This command is made to be used in group chats, not in pm!")
  if not perm.add_admins:
       return await event.reply("You are missing the following rights to use this command:CanAddAdmins!")
- user, title = await get_user(event)
+ try:
+     user, reason = await get_user(event)
+ except:
+      return
  if not await ck_admin(event, user.id):
   return await event.reply("This user is not an admin!")
  try:
