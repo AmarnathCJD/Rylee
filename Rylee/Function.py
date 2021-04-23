@@ -1,4 +1,5 @@
 from Rylee import tbot
+from telethon import functions, types
 
 async def get_user(event):
     """ Get the user from argument or replied message. """
@@ -26,3 +27,15 @@ async def get_user(event):
             return None
 
     return user_obj
+
+async def can_promote_users(message):
+    result = await tbot(
+        functions.channels.GetParticipantRequest(
+            channel=message.chat_id,
+            user_id=message.sender_id,
+        )
+    )
+    p = result.participant
+    return isinstance(p, types.ChannelParticipantCreator) or (
+        isinstance(p, types.ChannelParticipantAdmin) and p.admin_rights.add_admins
+    )
