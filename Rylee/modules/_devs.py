@@ -19,7 +19,7 @@ async def ss(event):
    fname = "User"
  if user_id == OWNER_ID or user_id == BOT_ID:
    return
- if sql.is_sudo(iid):
+ if sql.is_sudo(user_id):
       await event.reply("This is already a Pro Sudo!")
       return
  await event.reply(f"Sucessfully set the Disaster level of this user to **Sudo User**.")
