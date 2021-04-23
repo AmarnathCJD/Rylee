@@ -1,8 +1,8 @@
 from sys import argv, exit
-from Evie import tbot
-from Evie import TOKEN
+from Rylee import tbot
+from Rylee import TOKEN
 
-import Evie.events
+import Rylee.events
 
 try:
     tbot.start(bot_token=TOKEN)
