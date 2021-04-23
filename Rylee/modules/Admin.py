@@ -1,4 +1,4 @@
-from Rylee import thot, CMD_HELP
+from Rylee import tbot, CMD_HELP
 import os
 from Rylee.events import is_admin
 from Rylee.Function import can_promote_users, get_user
