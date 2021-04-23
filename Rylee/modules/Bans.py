@@ -42,7 +42,10 @@ async def kick(event, perm):
     if not perm.ban_users:
          await event.reply("You are missing the following rights to use this command:CanBanUsers!")
          return
-    user, reason = await get_user(event)
+    try:
+     user, reason = await get_user(event)
+    except:
+      return
     if await ck_admin(event, user.id):
         return await event.reply("Yeah lets start banning admins!")
     if reason:
@@ -79,7 +82,10 @@ async def ban(event, perm):
     if not perm.ban_users:
         await event.reply("You are missing the following rights to use this command:CanBanUsers!")
         return
-    user, reason = await get_user(event)
+    try:
+     user, reason = await get_user(event)
+    except:
+      return
     if await ck_admin(event, user.id):
         return await event.reply("Yeah lets start banning admins!")
     if reason:
@@ -101,7 +107,10 @@ async def unban(event, perm):
     if not perm.ban_users:
         await event.reply("You are missing the following rights to use this command:CanBanUsers!")
         return
-    user, reason = await get_user(event)
+    try:
+     user, reason = await get_user(event)
+    except:
+      return
     if await ck_admin(event, user.id):
         return await event.reply("Yeah lets start unbanning admins!")
     if reason:
@@ -120,7 +129,10 @@ async def skick(event, perm):
     if not perm.ban_users:
          await event.reply("You are missing the following rights to use this command:CanBanUsers!")
          return
-    user, reason = await get_user(event)
+    try:
+     user, reason = await get_user(event)
+    except:
+      return
     if await ck_admin(event, user.id):
         return await event.reply("Yeah lets start kicking admins!")
     if reason:
@@ -144,7 +156,10 @@ async def dkick(event, perm):
     if not reply_msg:
         await event.reply("Reply to someone to delete it and kick the user!")
         return
-    user, reason = await get_user(event)
+    try:
+     user, reason = await get_user(event)
+    except:
+      return
     if await ck_admin(event, user.id):
         return await event.reply("Yeah lets start kicking admins!")
     if reason:
@@ -168,7 +183,10 @@ async def dban(event, perm):
     if not reply_msg:
         await event.reply("Reply to someone to delete it and ban the user!")
         return
-    user, reason = await get_user(event)
+    try:
+     user, reason = await get_user(event)
+    except:
+      return
     if await ck_admin(event, user.id):
         return await event.reply("Yeah lets start banning admins!")
     if reason:
@@ -188,7 +206,10 @@ async def sban(event, perm):
     if not perm.ban_users:
          await event.reply("You are missing the following rights to use this command:CanBanUsers!")
          return
-    user, reason = await get_user(event)
+    try:
+     user, reason = await get_user(event)
+    except:
+      return
     if await ck_admin(event, user.id):
         return await event.reply("Yeah lets start banning admins!")
     if reason:
@@ -211,7 +232,10 @@ async def tmute(event, perm):
  if not perm.ban_users:
          await event.reply("You are missing the following rights to use this command:CanBanUsers!")
          return
- user, args = await get_user(event)
+ try:
+     user, reason = await get_user(event)
+ except:
+      return
  if await ck_admin(event, user.id):
         return await event.reply("Yeah lets start muting admins!")
  if not args:
@@ -242,7 +266,10 @@ async def tmute(event, perm):
  if not perm.ban_users:
          await event.reply("You are missing the following rights to use this command:CanBanUsers!")
          return
- user, args = await get_user(event)
+ try:
+     user, reason = await get_user(event)
+ except:
+      return
  if await ck_admin(event, user.id):
         return await event.reply("Yeah lets start banning admins!")
  if not args:
@@ -270,7 +297,10 @@ async def tmute(event, perm):
 async def dban(event, perm):
   if event.is_private:
     return await event.reply("This command is made to be used in group chats, not in pm!")
-  user, reason = await get_user(event)
+  try:
+     user, reason = await get_user(event)
+  except:
+      return
   if not perm.ban_users:
          await event.reply("You are missing the following rights to use this command:CanBanUsers!")
          return
@@ -296,7 +326,10 @@ async def dban(event, perm):
 async def dban(event, perm):
   if event.is_private:
     return await event.reply("This command is made to be used in group chats, not in pm!")
-  user, reason = await get_user(event)
+  try:
+     user, reason = await get_user(event)
+  except:
+      return
   if not perm.ban_users:
          await event.reply("You are missing the following rights to use this command:CanBanUsers!")
          return
@@ -317,7 +350,10 @@ async def dban(event, perm):
 async def dban(event, perm):
   if event.is_private:
     return await event.reply("This command is made to be used in group chats, not in pm!")
-  user, reason = await get_user(event)
+  try:
+     user, reason = await get_user(event)
+  except:
+      return
   if not perm.ban_users:
          await event.reply("You are missing the following rights to use this command:CanBanUsers!")
          return
