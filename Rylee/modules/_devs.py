@@ -1,4 +1,4 @@
-from Rylee import tbot, OWNER_ID, SUDO_USERS
+from Rylee import tbot, OWNER_ID, SUDO_USERS, BOT_ID
 import Rylee.modules.sql.elevated_sql as sql
 from Rylee.events import register
 from Rylee.Function import get_user
