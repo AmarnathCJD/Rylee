@@ -118,12 +118,12 @@ async def ud(ups):
         await lol.edit("`Still Running ....`")
     try:
             ups_rem.pull(ac_br)
-        except GitCommandError:
+    except GitCommandError:
             repo.git.reset("--hard", "FETCH_HEAD")
-        reqs_upgrade = await updateme_requirements()
-        await lol.edit("`Successfully Updated!\n" "restarting......`")
-        args = [sys.executable, "-m", "Rylee"]
-        execle(sys.executable, *args, environ)
-        return
+    reqs_upgrade = await updateme_requirements()
+    await lol.edit("`Successfully Updated!\n" "restarting......`")
+    args = [sys.executable, "-m", "Rylee"]
+    execle(sys.executable, *args, environ)
+    return
 
 
