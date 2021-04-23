@@ -114,7 +114,7 @@ async def unban(event, perm):
     except:
      await event.reply("Seems like I don't have enough rights to do that.")
 
-@tbot.on(events.NewMessage(pattern="^[!?/]skick"))
+@tbot.on(events.NewMessage(pattern="^[!?/]skick ?(.*)"))
 @is_admin
 async def skick(event, perm):
     if not perm.ban_users:
@@ -134,7 +134,7 @@ async def skick(event, perm):
     except:
      await event.reply("Seems like I don't have enough rights to do that.")
 
-@tbot.on(events.NewMessage(pattern="^[!?/]dkick"))
+@tbot.on(events.NewMessage(pattern="^[!?/]dkick ?(.*)"))
 @is_admin
 async def dkick(event, perm):
     if not perm.ban_users:
@@ -158,7 +158,7 @@ async def dkick(event, perm):
     except:
      await event.reply("Seems like I don't have enough rights to do that.")
 
-@tbot.on(events.NewMessage(pattern="^[!?/]dban"))
+@tbot.on(events.NewMessage(pattern="^[!?/]dban ?(.*)"))
 @is_admin
 async def dban(event, perm):
     if not perm.ban_users:
@@ -182,7 +182,7 @@ async def dban(event, perm):
     except:
      await event.reply("Seems like I don't have enough rights to do that.")
 
-@tbot.on(events.NewMessage(pattern="^[!?/]sban"))
+@tbot.on(events.NewMessage(pattern="^[!?/]sban ?(.*)"))
 @is_admin
 async def sban(event, perm):
     if not perm.ban_users:
@@ -265,10 +265,78 @@ async def tmute(event, perm):
  replied_user = await tbot.get_entity(user.id)
  await event.respond(f'Banned **{replied_user.first_name}** for {args}!\n{reason}')
 
+@tbot.on(events.NewMessage(pattern="^[!/?]dmute ?(.*)"))
+@is_admin
+async def dban(event, perm):
+  if event.is_private:
+    return await event.reply("This command is made to be used in group chats, not in pm!")
+  user, reason = await get_user(event)
+  if not perm.ban_users:
+         await event.reply("You are missing the following rights to use this command:CanBanUsers!")
+         return
+  reply_msg = await event.get_reply_message()
+  if not reply_msg:
+        await event.reply("Reply to someone to delete it and mute the user!")
+        return
+  if await ck_admin(event, user.id):
+        return await event.reply("Yeah lets start banning admins!")   
+  if reason:
+      reason = f"\n**Reason:** {reason}"
+  else:
+      reason = ""
+  await reply_msg.delete()
+  try:
+   await tbot.edit_permissions(event.chat_id, user.id, send_messages=False)
+   await event.reply(f"Shh.. quiet now.!\nMuted **{user.first_name}** {reason}")
+  except:
+   await event.reply("Seems like I don't have enough rights to do that.")
+
+@tbot.on(events.NewMessage(pattern="^[!/?]mute ?(.*)"))
+@is_admin
+async def dban(event, perm):
+  if event.is_private:
+    return await event.reply("This command is made to be used in group chats, not in pm!")
+  user, reason = await get_user(event)
+  if not perm.ban_users:
+         await event.reply("You are missing the following rights to use this command:CanBanUsers!")
+         return
+  if await ck_admin(event, user.id):
+        return await event.reply("Yeah lets start banning admins!")   
+  if reason:
+      reason = f"\n**Reason:** {reason}"
+  else:
+      reason = ""
+  try:
+   await tbot.edit_permissions(event.chat_id, user.id, send_messages=False)
+   await event.reply(f"Shh.. quiet now.!\nMuted **{user.first_name}** {reason}")
+  except:
+   await event.reply("Seems like I don't have enough rights to do that.")
+
+@tbot.on(events.NewMessage(pattern="^[!/?]smute ?(.*)"))
+@is_admin
+async def dban(event, perm):
+  if event.is_private:
+    return await event.reply("This command is made to be used in group chats, not in pm!")
+  user, reason = await get_user(event)
+  if not perm.ban_users:
+         await event.reply("You are missing the following rights to use this command:CanBanUsers!")
+         return
+  if await ck_admin(event, user.id):
+        return await event.reply("Yeah lets start banning admins!")   
+  if reason:
+      reason = f"\n**Reason:** {reason}"
+  else:
+      reason = ""
+  await event.delete()
+  try:
+   await tbot.edit_permissions(event.chat_id, user.id, send_messages=False)
+   await event.reply(f"Shh.. quiet now.!\nMuted **{user.first_name}** {reason}")
+  except:
+   await event.reply("Seems like I don't have enough rights to do that.")
 
 @tbot.on(events.callbackquery.CallbackQuery(data="bans"))
 async def banhelp(event):
-    await event.edit(help, buttons=[[Button.inline("« Bᴀᴄᴋ", data="help")]])
+    await event.reply(help, buttons=[[Button.inline("« Bᴀᴄᴋ", data="help")]])
 
 help = """
 **User Commands:**
