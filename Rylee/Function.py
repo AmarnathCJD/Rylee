@@ -38,3 +38,15 @@ async def can_promote_users(message):
     return isinstance(p, types.ChannelParticipantCreator) or (
         isinstance(p, types.ChannelParticipantAdmin) and p.admin_rights.add_admins
     )
+
+async def ck_admin(event, user):
+    try:
+        sed = await event.client.get_permissions(event.chat_id, user)
+        if sed.is_admin:
+            is_mod = True
+        else:
+            is_mod = False
+    except:
+        is_mod = False
+    return is_mod
+
