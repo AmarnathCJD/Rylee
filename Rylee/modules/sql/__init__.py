@@ -2,8 +2,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
+import os
 
-from Rylee import DB_URI
+DB_URI = os.environ.get("DATABASE_URL", None)
 
 def start() -> scoped_session:
     engine = create_engine(DB_URI, client_encoding="utf8")
