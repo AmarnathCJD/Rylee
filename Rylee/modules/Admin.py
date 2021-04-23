@@ -28,3 +28,23 @@ async def _(event, perm):
  except:
   await event.reply("Seems like I don't have enough rights to do that.")
  
+@tbot.on(events.NewMessage(pattern="^[!/?]demote ?(.*)"))
+@is_admin
+async def _(event, perm):
+ if not perm.add_admins:
+      return await event.reply("You are missing the following rights to use this command:CanAddAdmins!")
+ user, title = await get_user(event)
+ if not await ck_admin(event, user.id):
+  return await event.reply("This user is not an admin!")
+ try:
+  await tbot(EditAdminRequest(event.chat_id, user.id, ChatAdminRights(
+                    add_admins=False,
+                    invite_users=None,
+                    change_info=None,
+                    ban_users=None,
+                    delete_messages=None,
+                    pin_messages=None), rank="Not Admin"))
+  await event.respond(f"Demoted **{user.first_name}**!")
+ except:
+  await event.reply("Seems like I don't have enough rights to do that.")
+ 
