@@ -1,5 +1,5 @@
-from Evie import tbot, OWNER_ID
-from Evie.events import register
+from Rylee import tbot, OWNER_ID
+from Rylee.events import register
 import subprocess, io, sys, os
 import asyncio
 import traceback
