@@ -25,4 +25,4 @@ async def get_user(event):
             await event.reply(str(err))
             return None
 
-    return user_obj, extra
+    return user_obj
