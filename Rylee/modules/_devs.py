@@ -48,13 +48,11 @@ async def ss(event):
  await event.reply("This is not event a Sudo User;(")
    
 
-@register(pattern="^/eval ?(.*)")
+@tbot.on(events.NewMessage(pattern="^[!/?.]eval ?(.*)"))
 async def _(event):
     cmd = event.text.split(" ", maxsplit=1)[1]
-    if event.sender_id == OWNER_ID:
-       pass
-    else:
-     return
+    if not event.sender_id == OWNER_ID:
+       return
     reply_to_id = event.message.id
     if event.reply_to_msg_id:
         reply_to_id = event.reply_to_msg_id
