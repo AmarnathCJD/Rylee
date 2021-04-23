@@ -3,7 +3,7 @@ from logging import basicConfig, INFO, getLogger
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 StartTime = time.time()
-import Evie.modules.sql.elevated_sql as sql
+import Rylee.modules.sql.elevated_sql as sql
 
 CMD_LIST = {}
 CMD_HELP = {}
