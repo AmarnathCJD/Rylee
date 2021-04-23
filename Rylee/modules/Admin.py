@@ -9,6 +9,8 @@ from telethon.tl.types import ChatAdminRights
 @tbot.on(events.NewMessage(pattern="^[!/?]promote ?(.*)"))
 @is_admin
 async def _(event, perm):
+ if event.is_private:
+      return await event.reply("This command is made to be used in group chats, not in pm!")
  if not perm.add_admins:
       return await event.reply("You are missing the following rights to use this command:CanAddAdmins!")
  user, title = await get_user(event)
@@ -31,6 +33,8 @@ async def _(event, perm):
 @tbot.on(events.NewMessage(pattern="^[!/?]demote ?(.*)"))
 @is_admin
 async def _(event, perm):
+ if event.is_private:
+      return await event.reply("This command is made to be used in group chats, not in pm!")
  if not perm.add_admins:
       return await event.reply("You are missing the following rights to use this command:CanAddAdmins!")
  user, title = await get_user(event)
@@ -48,3 +52,23 @@ async def _(event, perm):
  except:
   await event.reply("Seems like I don't have enough rights to do that.")
  
+@tbot.on(events.NewMessage(pattern="^[!/?]adminlist"))
+async def admeene(event):
+ if event.is_private:
+      return await event.reply("This command is made to be used in group chats, not in pm!")
+ if not await ck_admin(event, BOT_ID):
+      return
+ mentions = f"Admins in <b>{event.chat.title}</b>:"
+ async for user in tbot.iter_participants(
+            event.chat_id, filter=ChannelParticipantsAdmins
+        ):
+            if not user.deleted:
+              if user.username:
+                link_unf = '-@{}'
+                link = link_unf.format(user.username)
+                mentions += f"\n{link}"
+ mentions += "\nNote: These values are up-to-date"
+ await event.reply(mentions)
+            
+
+
