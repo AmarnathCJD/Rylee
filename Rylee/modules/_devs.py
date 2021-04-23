@@ -11,7 +11,7 @@ import traceback
 async def ss(event):
  if not event.sender_id == OWNER_ID:
    return
- user, comment = await get_user(event)
+ user = await get_user(event)
  user_id = user.id
  try:
    fname = (tbot.get_entity(user.id)).first_name
@@ -22,11 +22,7 @@ async def ss(event):
  if sql.is_sudo(iid):
       await event.reply("This is already a Pro Sudo!")
       return
- if comment:
-  reason = f"\n**Reason:** {comment}"
- else:
-  reason = ""
- await event.reply(f"Sucessfully set the Disaster level of this user to **Sudo User**.{reason}")
+ await event.reply(f"Sucessfully set the Disaster level of this user to **Sudo User**.")
  sql.set_sudo(user_id, fname)
  SUDO_USERS.append(user_id)
 
@@ -34,7 +30,7 @@ async def ss(event):
 async def ss(event):
  if not event.sender_id == OWNER_ID:
    return
- user, comment = await get_user(event)
+ user = await get_user(event)
  user_id = user.id
  try:
    fname = (tbot.get_entity(user.id)).first_name
@@ -42,13 +38,9 @@ async def ss(event):
    fname = "User"
  if user_id == OWNER_ID or user_id == BOT_ID:
    return
- if comment:
-  reason = f"\n**Reason:** {comment}"
- else:
-  reason = ""
  if sql.is_sudo(user_id):
          sql.rm_sudo(user_id)
-         await event.reply(f"Removed From **Sudo Users**.{reason}")
+         await event.reply(f"Removed From **Sudo Users**.")
          SUDO_USERS.remove(user_id)
          return
  await event.reply("This is not event a Sudo User;(")
