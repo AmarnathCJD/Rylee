@@ -1,5 +1,6 @@
 from Rylee import tbot, OWNER_ID, BOT_ID
 from Rylee.events import is_admin
+from Rylee.Function import ck_admin, get_user
 from telethon import events, Button
 from telethon.tl.functions.channels import EditBannedRequest
 from telethon.tl.types import ChatBannedRights
