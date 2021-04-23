@@ -10,4 +10,5 @@ async def _(event, perm):
  if not perm.add_admins:
       return await event.reply("You are missing the following rights to use this command:CanAddAdmins!")
  user, title = await get_user(event)
- await event.reply(f"{user.id}-{title}")
+ await event.respond(f"{user.first_name}")
+ 
