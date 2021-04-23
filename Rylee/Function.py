@@ -3,7 +3,7 @@ from telethon import functions, types
 
 async def get_user(event):
     args = event.pattern_match.group(1).split(" ", 1)
-    extra = None
+    extra = ""
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         user_obj = await event.client.get_entity(previous_message.sender_id)
@@ -38,15 +38,3 @@ async def can_promote_users(message):
     return isinstance(p, types.ChannelParticipantCreator) or (
         isinstance(p, types.ChannelParticipantAdmin) and p.admin_rights.add_admins
     )
-
-async def ck_admin(event, user):
-    try:
-        sed = await event.client.get_permissions(event.chat_id, user)
-        if sed.is_admin:
-            is_mod = True
-        else:
-            is_mod = False
-    except:
-        is_mod = False
-    return is_mod
-
