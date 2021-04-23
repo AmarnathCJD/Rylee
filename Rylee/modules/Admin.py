@@ -16,13 +16,15 @@ async def _(event, perm):
   title = "Admin"
  if await ck_admin(event, user.id):
   return await event.reply("This user is already an admin!")
- await event.respond(f"Promoted **{user.first_name}** in **{event.chat.title}**!")
- await tbot(EditAdminRequest(event.chat_id, user.id, ChatAdminRights(
+ try:
+  await tbot(EditAdminRequest(event.chat_id, user.id, ChatAdminRights(
                     add_admins=False,
                     invite_users=True,
                     change_info=True,
                     ban_users=True,
                     delete_messages=True,
                     pin_messages=True), rank=title))
-
+  await event.respond(f"Promoted **{user.first_name}** in **{event.chat.title}**!")
+ except:
+  await event.reply("Seems like I don't have enough rights to do that.")
  
