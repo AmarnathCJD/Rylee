@@ -9,4 +9,5 @@ from telethon import events
 async def _(event, perm):
  if not perm.add_admins:
       return await event.reply("You are missing the following rights to use this command:CanAddAdmins!")
- await event.reply("hi")
+ user, title = await get_user(event)
+ await event.reply(f"{user.id}-{title}")
