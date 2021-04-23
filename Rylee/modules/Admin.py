@@ -5,6 +5,7 @@ from Rylee.Function import can_promote_users, get_user, ck_admin
 from telethon import events, Button
 from telethon.tl.functions.channels import EditAdminRequest
 from telethon.tl.types import ChatAdminRights, ChannelParticipantsAdmins
+from telethon.tl.functions.messages import ExportChatInviteRequest
 
 @tbot.on(events.NewMessage(pattern="^[!/?]promote ?(.*)"))
 @is_admin
@@ -69,12 +70,22 @@ async def admeene(event):
                 mentions += f"\n{link}"
  mentions += "\n\nNote: These values are up-to-date"
  await event.reply(mentions)
-            
+
+@tbot.on(events.NewMessage(pattern="^[!?/]invitelink"))
+@is_admin
+async def link(event):
+ if event.is_private:
+    return await event.reply("This cmd is made to be used in groups, not in PM!")
+ link = await tbot(ExportChatInviteRequest(event.chat_id))
+ await event.reply(f"Invite link of **{event.chat.title}** is [here]({link.link})", link_preview=False)
+
+
 __help__ = """
 **Admin Commands:**
 - /promote: promote a user.
 - /demote: demotes a user.
 - /superpromote: promotes a user with full rights except anonymous.
 - /adminlist: shows the admins of the chat.
+- /invitelink: gets the chat invite link.
 """
 
