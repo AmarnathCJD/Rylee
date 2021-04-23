@@ -2,7 +2,6 @@ from Rylee import tbot
 from telethon import functions, types
 
 async def get_user(event):
-    """ Get the user from argument or replied message. """
     args = event.pattern_match.group(1).split(" ", 1)
     extra = None
     if event.reply_to_msg_id:
@@ -26,7 +25,7 @@ async def get_user(event):
             await event.reply(str(err))
             return None
 
-    return user_obj
+    return user_obj, extra
 
 async def can_promote_users(message):
     result = await tbot(
