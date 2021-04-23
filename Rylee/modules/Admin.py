@@ -83,7 +83,7 @@ async def link(event, perm):
  if event.is_private:
     return await event.reply("This cmd is made to be used in groups, not in PM!")
  link = await tbot(ExportChatInviteRequest(event.chat_id))
- await event.reply(f"Invite link of **{event.chat.title}** is [here]({link.link})", link_preview=False)
+ await event.reply(f"`{link.link}`", link_preview=False)
 
 
 __help__ = """
