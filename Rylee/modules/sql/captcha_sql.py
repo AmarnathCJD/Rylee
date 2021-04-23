@@ -40,7 +40,7 @@ def set_captcha(chat_id, style):
   }
   return captcha
   
-def update_style(chat_id, style)
+def update_style(chat_id, style):
  with C_LOCK:
   global CAPTCHA_CHAT
   captcha = SESSION.query(Captcha).get(chat_id)
@@ -50,7 +50,7 @@ def update_style(chat_id, style)
   SESSION.commit()
   CAPTCHA_CHAT[str(chat_id)]["style"] = style
 
-def update_time(chat_id, time)
+def update_time(chat_id, time):
  with C_LOCK:
   global CAPTCHA_CHAT
   captcha = SESSION.query(Captcha).get(chat_id)
@@ -61,7 +61,7 @@ def update_time(chat_id, time)
   CAPTCHA_CHAT[str(chat_id)]["time"] = time
 
 
-def update_mode(chat_id, mode)
+def update_mode(chat_id, mode):
  with C_LOCK:
   global CAPTCHA_CHAT
   captcha = SESSION.query(Captcha).get(chat_id)
