@@ -165,9 +165,7 @@ async def lel(event, perm):
  settings = sql.get_time(event.chat_id)
  if not time:
    if settings == False or settings == 0:
-    await event.reply("""Users that don't complete their CAPTCHA are allowed to stay in the chat, muted, and can complete the CAPTCHA whenever.
-
-To change this setting, try this command again followed by one of yes/no/on/off""")
+    await event.reply("Users that don't complete their CAPTCHA are allowed to stay in the chat, muted, and can complete the CAPTCHA whenever.To change this setting, try this command again followed by one of yes/no/on/off")
    else:
     await event.reply(f"I am currently kicking users that haven't completed the CAPTCHA after {settings/60} minutes")
  if mutetime:
