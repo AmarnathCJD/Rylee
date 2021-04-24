@@ -169,6 +169,8 @@ async def lel(event, perm):
    else:
     await event.reply(f"I am currently kicking users that haven't completed the CAPTCHA after {settings/60} minutes")
  if mutetime:
+  if mutetime >= 86400 or mutetime < 300:
+    return await event.reply("The welcome kick time can only be between 5 minutes, and 1 day. Please choose another time.")
   await event.reply(f"Welcome kick time has been set to {time}.")
   x = sql.set_time(event.chat_id, mutetime)
   if not x:
