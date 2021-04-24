@@ -43,6 +43,18 @@ async def can_promote_users(message):
         isinstance(p, types.ChannelParticipantAdmin) and p.admin_rights.add_admins
     )
 
+async def can_change_info(message):
+    result = await tbot(
+        functions.channels.GetParticipantRequest(
+            channel=message.chat_id,
+            user_id=message.sender_id,
+        )
+    )
+    p = result.participant
+    return isinstance(p, types.ChannelParticipantCreator) or (
+        isinstance(p, types.ChannelParticipantAdmin) and p.admin_rights.change_info
+    )
+
 async def ck_admin(event, user):
     try:
         sed = await event.client.get_permissions(event.chat_id, user)
