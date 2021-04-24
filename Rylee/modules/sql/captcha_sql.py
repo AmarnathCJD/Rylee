@@ -71,6 +71,25 @@ def set_time(chat_id, time):
    SESSION.add(curr)
    SESSION.commit()
 
+def get_mode(chat_id):
+    get = CAPTCHA_CHAT.get(str(chat_id))
+    if get is None:
+        return False
+    return get["mode"]
+
+def get_style(chat_id):
+    get = CAPTCHA_CHAT.get(str(chat_id))
+    if get is None:
+        return False
+    return get["style"]
+
+def get_mode(chat_id):
+    get = CAPTCHA_CHAT.get(str(chat_id))
+    if get is None:
+        return False
+    return get["time"]
+
+
 def __load_all_chats():
  global CAPTCHA_CHAT
  captcha = SESSION.query(Captcha).all()
