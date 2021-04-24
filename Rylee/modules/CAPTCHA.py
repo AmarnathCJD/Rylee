@@ -37,7 +37,7 @@ async def extract_time(message, time_val):
 @tbot.on(events.NewMessage(pattern="^[!?/]captcha ?(.*)"))
 async def lel(event):
  args = event.pattern_match.group(1)
- avoid = ["kick", "mode on", "kicktime", "kick", "kick off", "kick yes", "kick on", "kick no", "kick y", "kick n", "mode off", "mode on", "mode y", "mode n", "mode yes", "mode no", "kicktime [0-9]"]
+ avoid = ["kick", "mode on", "kicktime", "kick", "kick off", "kick yes", "kick on", "kick no", "kick y", "kick n", "mode off", "mode on", "mode y", "mode n", "mode yes", "mode no", "kicktime [0-9][mhd]"]
  if args:
   if args in avoid:
    return
@@ -131,7 +131,7 @@ async def lel(event):
  optionsp = ["y", "yes", "on"]
  optionsn = ["n", "no", "off"]
  args= event.pattern_match.group(1)
- avoid = ["captchakicktime", "captchakicktime [0-9]"]
+ avoid = ["captchakicktime", "captchakicktime [0-9][mhd]", "captchakicktime [0-9]"]
  if args:
   if args in avoid:
    return
@@ -161,6 +161,7 @@ async def lel(event, perm):
  if not perm.change_info:
          await event.reply("You are missing the following rights to use this command:CanChangeInfo!")
          return
+ time = event.pattern_match.group(1)
  mutetime = await extract_time(event, time)
  await event.reply(mutetime)
  
