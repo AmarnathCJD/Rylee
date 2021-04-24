@@ -4,7 +4,6 @@ from sqlalchemy import Boolean, Column, Integer, String, UnicodeText
 
 class Captcha(BASE):
     __tablename__ = "cla"
-
     chat_id = Column(String(14), primary_key=True)
     mode = Column(Boolean)
     time = Column(Integer)
