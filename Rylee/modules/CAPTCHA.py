@@ -5,13 +5,13 @@ from Rylee.Function import can_change_info, ck_admin
 import os
 from telethon import Button, events
 
-turnon = ["on", "yes", "enable"]
-turnoff = ["off", "no", "disable"]
+turnon = ["on", "yes", "y"]
+turnoff = ["off", "no", "n"]
 
 @tbot.on(events.NewMessage(pattern="^[!?/]captcha ?(.*)"))
 async def lel(event):
  args = event.pattern_match.group(1)
- avoid = ["kick", "mode", "kicktime"]
+ avoid = ["kick", "mode on", "kicktime", "kick", "kick off", "kick yes", "kick on", "kick no", "kick y", "kick n", "mode off", "mode on", "mode y", "mode n", "mode yes", "mode no", "kicktime [0-9]"]
  if args:
   if args in avoid:
    return
@@ -92,3 +92,33 @@ Available CAPTCHA modes are: button/math/text/multibutton
    sql.set_captcha(event.chat_id, style)
  else:
   await event.reply(f"{args} is not a recognised CAPTCHA mode! Try one of: button/math/text/multibutton")
+
+
+@tbot.on(events.NewMessage(pattern="^[!?/]captchakick ?(.*)"))
+@is_admin
+async def lel(event, perm):
+ optionsp = ["y", "yes", "on"]
+ optionsn = ["n", "no", "off"]
+ args= event.pattern_match.group(1)
+ settings = 0
+ settings = sql.get_time(event.chat_id)
+ if not args:
+   if settings == False or settings == 0:
+    await event.reply("""Users that don't complete their CAPTCHA are allowed to stay in the chat, muted, and can complete the CAPTCHA whenever.
+
+To change this setting, try this command again followed by one of yes/no/on/off""")
+   else:
+    await event.reply("""I am currently kicking users that haven't completed the CAPTCHA after 0 seconds
+
+To change this setting, try this command again followed by one of yes/no/on/off""")
+ elif args in optionsp:
+  time = settings
+  await event.reply(f"I will now kick people that haven't solved the CAPTCHA after {time/60} minutes.")
+ elif args in optionsn:
+  time = 0
+  await event.reply("I will no longer kick people that haven't solved the CAPTCHA.")
+ x = sql.set_time(event.chat_id, time)
+ 
+  
+
+
