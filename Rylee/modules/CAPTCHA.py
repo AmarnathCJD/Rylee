@@ -14,7 +14,7 @@ async def extract_time(message, time_val):
         time_num = time_val[:-1]
         if not time_num.isdigit():
             await message.reply(f"Invalid time type specified. Expected m,h, or d, got: {unit}")
-            return ""
+            return False
 
         if unit == "m" or unit == "minute":
             bantime = int(time_num) * 60
@@ -23,7 +23,7 @@ async def extract_time(message, time_val):
         elif unit == "d" or unit == "day":
             bantime = int(time_num) * 24 * 60 * 60
         else:
-            return
+            return False
         return bantime
     else:
         await message.reply(
@@ -83,10 +83,15 @@ async def lel(event, perm):
       unit = "Hours"
     tt = f"{int(tyme)} {unit}"
     await event.reply(f"If users haven't unmuted themselves after {tt}, they will be unmuted automatically.\nTo change the CAPTCHA mute time, try this command again with a time value.\nExample time values: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.")
+ elif args in turnoff:
+  mutetime = 0
+  x = sql.set_unmute_time(event.chat_id, mutetime)
+  await event.reply("I will now mute users for an indeterminate amount of time. The only way for them to get unmuted will be to complete the CAPTCHA.")
  elif args:
   mutetime = await extract_time(event, args)
-  x = sql.set_unmute_time(event.chat_id, mutetime)
-  await event.reply("I will now mute people for {args} when they join - or until they solve the CAPTCHA in the welcome message.")
+  if mutetime:
+   x = sql.set_unmute_time(event.chat_id, mutetime)
+   await event.reply("I will now mute people for {args} when they join - or until they solve the CAPTCHA in the welcome message.")
   
 @tbot.on(events.NewMessage(pattern="^[!?/]captchamode ?(.*)"))
 @is_admin
