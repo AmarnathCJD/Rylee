@@ -7,12 +7,14 @@ class Captcha(BASE):
     chat_id = Column(Numeric, primary_key=True)
     mode = Column(Boolean)
     time = Column(Integer)
+    ctime = Column(Integer)
     style = Column(UnicodeText)
 
-    def __init__(self, chat_id, mode=True, time=0, style="button"):
+    def __init__(self, chat_id, mode=True, time=0, ctime=0, style="button"):
         self.chat_id = chat_id
         self.mode = mode
         self.time = time
+        self.ctime = ctime
         self.style = style
 
     def __repr__(self):
@@ -28,16 +30,18 @@ def set_captcha(chat_id, style):
   global CAPTCHA_CHAT
   curr = SESSION.query(Captcha).get(chat_id)
   if not curr:
-      curr = Captcha(chat_id, True, 0, style)
+      curr = Captcha(chat_id, True, 0, 0, style)
   else:
       curr.mode = True
       curr.time = 0
+      curr.ctime = 0
       curr.style = style
   SESSION.add(curr)
   SESSION.commit()
   CAPTCHA_CHAT[str(chat_id)] = {
             "mode": True,
             "time": 0,
+            "ctime": 0,
             "style": style
         }
   
@@ -74,6 +78,17 @@ def set_time(chat_id, time):
    SESSION.commit()
    CAPTCHA_CHAT[f'{chat_id}']["time"] = time
 
+def set_unmute_time(chat_id, ctime):
+ with C_LOCK:
+   global CAPTCHA_CHAT
+   curr = SESSION.query(Captcha).get(chat_id)
+   if not curr:
+        return False
+   curr.ctime = ctime
+   SESSION.add(curr)
+   SESSION.commit()
+   CAPTCHA_CHAT[f'{chat_id}']["ctime"] = ctime
+
 def get_mode(chat_id):
     get = CAPTCHA_CHAT.get(str(chat_id))
     if get is None:
@@ -92,6 +107,11 @@ def get_time(chat_id):
         return False
     return get["time"]
 
+def get_unmute_time(chat_id):
+    get = CAPTCHA_CHAT.get(str(chat_id))
+    if get is None:
+        return False
+    return get["ctime"]
 
 def __load_all_chats():
  global CAPTCHA_CHAT
