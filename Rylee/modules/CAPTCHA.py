@@ -37,7 +37,7 @@ async def extract_time(message, time_val):
 @tbot.on(events.NewMessage(pattern="^[!?/]captcha ?(.*)"))
 async def lel(event):
  args = event.pattern_match.group(1)
- avoid = ["kick", "mode on", "kicktime", "kick", "kick off", "kick yes", "kick on", "kick no", "kick y", "kick n", "mode off", "mode on", "mode y", "mode n", "mode yes", "mode no", "kicktime [0-9]d"]
+ avoid = ["kick", "mode on", "kicktime", "kick", "kick off", "kick yes", "kick on", "kick no", "kick y", "kick n", "mode off", "mode on", "mode y", "mode n", "mode yes", "mode no", "kicktime [0-9]d", "time"]
  if args:
   if args in avoid:
    return
@@ -65,6 +65,36 @@ async def lel(event):
   x = sql.set_mode(event.chat_id, mode)
  else:
   pass
+
+@tbot.on(events.NewMessage(pattern="^[!?/]captchatime ?(.*)"))
+@is_admin
+async def lel(event, perm):
+ if not perm.change_info:
+         await event.reply("You are missing the following rights to use this command:CanChangeInfo!")
+         return
+ settings = sql.get_unmute_time(event.chat_id)
+ args = event.pattern_match.group(1)
+ if not args:
+  if settings == False:
+   await event.reply("Enable CAPTCHAs First.!")
+  elif settings == 0:
+   await event.reply("Users will stay muted until they use the CAPTCHA.\nTo change the CAPTCHA mute time, try this command again with a time value.\nExample time values: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.")
+  elif settings > 0:
+    tyme = settings/60
+    unit = "Minutes"
+    if tyme >= 60:
+      tyme = tyme/60
+      unit = "Hours"
+    tt = f"{int(tyme)}{unit}"
+    await event.reply("If users haven't unmuted themselves after {tt}, they will be unmuted automatically.\nTo change the CAPTCHA mute time, try this command again with a time value.\nExample time values: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.")
+ elif args:
+  mutetime = await extract_time(event, args)
+  x = sql.set_unmute_time(event.chat_id, mutetime)
+  if not x:
+   return await event.replt("Enable captcha first!.")
+  await event.reply("I will now mute people for {args} when they join - or until they solve the CAPTCHA in the welcome message.")
+  
+
 @tbot.on(events.NewMessage(pattern="^[!?/]captchamode ?(.*)"))
 @is_admin
 async def lel(event, perm):
@@ -177,10 +207,10 @@ async def lel(event, perm):
  if mutetime:
   if mutetime >= 86400 or mutetime < 300:
     return await event.reply("The welcome kick time can only be between 5 minutes, and 1 day. Please choose another time.")
-  await event.reply(f"Welcome kick time has been set to {time}.")
   x = sql.set_time(event.chat_id, mutetime)
   if not x:
-   await event.replt("Enable captcha first!.")
+   return await event.replt("Enable captcha first!.")
+  await event.reply(f"Welcome kick time has been set to {time}.")
   
 #Soon
  
