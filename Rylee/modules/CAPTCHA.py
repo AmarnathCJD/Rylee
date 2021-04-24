@@ -161,8 +161,22 @@ async def lel(event, perm):
          await event.reply("You are missing the following rights to use this command:CanChangeInfo!")
          return
  time = event.pattern_match.group(1)
- mutetime = await extract_time(event, time)
- await event.reply(f"{mutetime}")
+ if time: mutetime = await extract_time(event, time)
+ if not time:
+  settings = sql.get_time(event.chat_id)
+ if not args:
+   if settings == False or settings == 0:
+    await event.reply("""Users that don't complete their CAPTCHA are allowed to stay in the chat, muted, and can complete the CAPTCHA whenever.
+
+To change this setting, try this command again followed by one of yes/no/on/off""")
+   else:
+    await event.reply(f"I am currently kicking users that haven't completed the CAPTCHA after {settings/60} minutes")
+ if mutetime:
+  await event.reply(f"Welcome kick time has been set to {time}.")
+  x = sql.set_time(event.chat_id, mutetime)
+  if not x:
+   await event.replt("Enable captcha first!.")
+  
  
  
   
