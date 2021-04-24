@@ -14,11 +14,11 @@ async def lel(event, perm):
          await event.reply("You are missing the following rights to use this command:CanChangeInfo!")
          return
  args = event.pattern_match.group(1)
- settings = sql.get_mode
+ settings = sql.get_mode(event.chat_id)
  if not args:
   if settings == False:
    await event.reply("Currently Welcome CAPTCHAs are disabled for this Chat.")
-  else:
+  elif :
    await event.reply("Currently Welcome CAPTCHAs are enabled for this Chat.")
  elif args in turnon:
   mode = True
