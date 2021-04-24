@@ -3,7 +3,7 @@ from Rylee.modules.sql import BASE, SESSION
 from sqlalchemy import Boolean, Column, Integer, String, UnicodeText
 
 class Captcha(BASE):
-    __tablename__ = "clla"
+    __tablename__ = "cla"
 
     chat_id = Column(Integer, primary_key=True)
     mode = Column(Boolean)
@@ -45,7 +45,7 @@ def set_style(chat_id, style):
    if not curr:
         return False
    curr.style = style
-   SESSION.merge(curr)
+   SESSION.add(curr)
    SESSION.commit()
   except Exception as e:
    print(e)
