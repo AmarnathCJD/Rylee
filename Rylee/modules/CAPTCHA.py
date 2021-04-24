@@ -10,8 +10,6 @@ turnoff = ["off", "no", "disable"]
 @tbot.on(events.NewMessage(pattern="^[!?/]captcha ?(.*)"))
 @is_admin
 async def lel(event, perm):
- if "mode" or "kick" or "kicktime" in event.pattern_match.group(1):
-   return
  args = event.pattern_match.group(1)
  settings = sql.get_mode(event.chat_id)
  if not args:
