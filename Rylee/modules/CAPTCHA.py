@@ -81,16 +81,13 @@ async def lel(event, perm):
     if tyme >= 60:
       tyme = tyme/60
       unit = "Hours"
-    tt = f"{int(tyme)}{unit}"
+    tt = f"{int(tyme)} {unit}"
     await event.reply(f"If users haven't unmuted themselves after {tt}, they will be unmuted automatically.\nTo change the CAPTCHA mute time, try this command again with a time value.\nExample time values: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.")
  elif args:
   mutetime = await extract_time(event, args)
   x = sql.set_unmute_time(event.chat_id, mutetime)
-  if not x:
-   return await event.reply("Enable captcha first!.")
   await event.reply("I will now mute people for {args} when they join - or until they solve the CAPTCHA in the welcome message.")
   
-
 @tbot.on(events.NewMessage(pattern="^[!?/]captchamode ?(.*)"))
 @is_admin
 async def lel(event, perm):
@@ -198,7 +195,7 @@ async def lel(event, perm):
     if tyme >= 60:
       tyme = tyme/60
       unit = "Hours"
-    tt = f"{int(tyme)}{unit}"
+    tt = f"{int(tyme)} {unit}"
     await event.reply(f"I am currently kicking users that haven't completed the CAPTCHA after {tt}")
  if mutetime:
   if mutetime >= 86400 or mutetime < 300:
