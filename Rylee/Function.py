@@ -1,5 +1,9 @@
-from Rylee import tbot
+from Rylee import tbot, MONGO_DB_URI
 from telethon import functions, types
+from pymongo import MongoClient
+
+client = MongoClient(MONGO_DB_URI)
+db = client["Rylee"]
 
 async def get_user(event):
     args = event.pattern_match.group(1).split(" ", 1)
