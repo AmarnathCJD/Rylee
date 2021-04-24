@@ -8,6 +8,32 @@ from telethon import Button, events
 turnon = ["on", "yes", "y"]
 turnoff = ["off", "no", "n"]
 
+async def extract_time(message, time_val):
+    if any(time_val.endswith(unit) for unit in ("m", "h", "d")):
+        unit = time_val[-1]
+        time_num = time_val[:-1]
+        if not time_num.isdigit():
+            await message.reply(f"Invalid time type specified. Expected m,h, or d, got: {unit}")
+            return ""
+
+        if unit == "m" or unit == "minute":
+            bantime = int(time_num) * 60)
+        elif unit == "h" or unit == "hour":
+            bantime = int(time_num) * 60 * 60)
+        elif unit == "d" or unit == "day":
+            bantime = int(time_num) * 24 * 60 * 60)
+        else:
+            return
+        return bantime
+    else:
+        await message.reply(
+            "Invalid time type specified. Expected m,h, or d, got: {}".format(
+                time_val[-1]
+            )
+        )
+        return
+
+
 @tbot.on(events.NewMessage(pattern="^[!?/]captcha ?(.*)"))
 async def lel(event):
  args = event.pattern_match.group(1)
@@ -132,6 +158,11 @@ To change this setting, try this command again followed by one of yes/no/on/off"
 @tbot.on(events.NewMessage(pattern="^[!?/]captchakicktime ?(.*)"))
 @is_admin
 async def lel(event, perm):
+ if not perm.change_info:
+         await event.reply("You are missing the following rights to use this command:CanChangeInfo!")
+         return
+ mutetime = await extract_time(event, time)
+ await event.reply(mutetime)
  
  
   
