@@ -100,7 +100,7 @@ async def lel(event, perm):
  optionsp = ["y", "yes", "on"]
  optionsn = ["n", "no", "off"]
  args= event.pattern_match.group(1)
- settings = 0
+ time = 300
  settings = sql.get_time(event.chat_id)
  if not args:
    if settings == False or settings == 0:
@@ -112,7 +112,8 @@ To change this setting, try this command again followed by one of yes/no/on/off"
 
 To change this setting, try this command again followed by one of yes/no/on/off""")
  elif args in optionsp:
-  time = settings
+  if settings:
+   time = settings
   await event.reply(f"I will now kick people that haven't solved the CAPTCHA after {time/60} minutes.")
  elif args in optionsn:
   time = 0
