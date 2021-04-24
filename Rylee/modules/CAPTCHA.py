@@ -18,7 +18,7 @@ async def lel(event, perm):
  if not args:
   if settings == False:
    await event.reply("Currently Welcome CAPTCHAs are disabled for this Chat.")
-  elif :
+  elif settings == True:
    await event.reply("Currently Welcome CAPTCHAs are enabled for this Chat.")
  elif args in turnon:
   mode = True
