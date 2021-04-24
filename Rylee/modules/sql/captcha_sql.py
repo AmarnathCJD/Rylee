@@ -35,10 +35,14 @@ def set_captcha(chat_id, style):
       curr.style = style
   SESSION.add(curr)
   SESSION.commit()
+  CAPTCHA_CHAT[str(chat_id)] = {
+            "mode": True,
+            "time": 0,
+            "style": style
+        }
   
 def set_style(chat_id, style):
  with C_LOCK:
-  try:
    global CAPTCHA_CHAT
    curr = SESSION.query(Captcha).get(chat_id)
    if not curr:
@@ -46,5 +50,38 @@ def set_style(chat_id, style):
    curr.style = style
    SESSION.add(curr)
    SESSION.commit()
-  except Exception as e:
-   print(e)
+
+def set_mode(chat_id, mode):
+ with C_LOCK:
+   global CAPTCHA_CHAT
+   curr = SESSION.query(Captcha).get(chat_id)
+   if not curr:
+        return False
+   curr.mode = mode
+   SESSION.add(curr)
+   SESSION.commit()
+
+def set_time(chat_id, time):
+ with C_LOCK:
+   global CAPTCHA_CHAT
+   curr = SESSION.query(Captcha).get(chat_id)
+   if not curr:
+        return False
+   curr.time = time
+   SESSION.add(curr)
+   SESSION.commit()
+
+def __load_all_chats():
+ global CAPTCHA_CHAT
+ captcha = SESSION.query(Captcha).all()
+ for x in feds:
+            check = CAPTCHA_CHAT[x.chat_id]
+            if check is None:
+                CAPTCHA_CHAT[str(x.chat_id)] = []
+            CAPTCHA_CHAT[str(chat_id)] = {
+                "mode": x.mode,
+                "time": x.time,
+                "style": x.style,
+        }
+
+__load_all_chats()
