@@ -75,19 +75,19 @@ def set_time(chat_id, time):
    CAPTCHA_CHAT[f'{chat_id}']["time"] = time
 
 def get_mode(chat_id):
-    get = CAPTCHA_CHAT.get(chat_id)
+    get = CAPTCHA_CHAT.get(str(chat_id))
     if get is None:
         return False
     return get["mode"]
 
 def get_style(chat_id):
-    get = CAPTCHA_CHAT.get(chat_id)
+    get = CAPTCHA_CHAT.get(str(chat_id))
     if get is None:
         return False
     return get["style"]
 
 def get_time(chat_id):
-    get = CAPTCHA_CHAT.get(chat_id)
+    get = CAPTCHA_CHAT.get(str(chat_id))
     if get is None:
         return False
     return get["time"]
