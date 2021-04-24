@@ -172,7 +172,7 @@ async def lel(event, perm):
     if tyme >= 60:
       tyme = tyme/60
       unit = "Hours"
-    tt = f"{tyme}{unit}"
+    tt = f"{int(tyme)}{unit}"
     await event.reply(f"I am currently kicking users that haven't completed the CAPTCHA after {tt}")
  if mutetime:
   if mutetime >= 86400 or mutetime < 300:
