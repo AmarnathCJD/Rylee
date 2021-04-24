@@ -17,11 +17,11 @@ async def extract_time(message, time_val):
             return ""
 
         if unit == "m" or unit == "minute":
-            bantime = int(time_num) * 60)
+            bantime = int(time_num) * 60
         elif unit == "h" or unit == "hour":
-            bantime = int(time_num) * 60 * 60)
+            bantime = int(time_num) * 60 * 60
         elif unit == "d" or unit == "day":
-            bantime = int(time_num) * 24 * 60 * 60)
+            bantime = int(time_num) * 24 * 60 * 60
         else:
             return
         return bantime
