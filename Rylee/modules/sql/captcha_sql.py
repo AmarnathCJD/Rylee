@@ -50,6 +50,7 @@ def set_style(chat_id, style):
    curr.style = style
    SESSION.add(curr)
    SESSION.commit()
+   CAPTCHA_CHAT[str(chat_id)]["style"] = style
 
 def set_mode(chat_id, mode):
  with C_LOCK:
@@ -60,6 +61,7 @@ def set_mode(chat_id, mode):
    curr.mode = mode
    SESSION.add(curr)
    SESSION.commit()
+   CAPTCHA_CHAT[str(chat_id)]["mode"] = mode
 
 def set_time(chat_id, time):
  with C_LOCK:
@@ -70,21 +72,22 @@ def set_time(chat_id, time):
    curr.time = time
    SESSION.add(curr)
    SESSION.commit()
+   CAPTCHA_CHAT[str(chat_id)]["time"] = time
 
 def get_mode(chat_id):
-    get = CAPTCHA_CHAT.get(str(chat_id))
+    get = CAPTCHA_CHAT.get(chat_id)
     if get is None:
         return False
     return get["mode"]
 
 def get_style(chat_id):
-    get = CAPTCHA_CHAT.get(str(chat_id))
+    get = CAPTCHA_CHAT.get(chat_id)
     if get is None:
         return False
     return get["style"]
 
-def get_mode(chat_id):
-    get = CAPTCHA_CHAT.get(str(chat_id))
+def get_time(chat_id):
+    get = CAPTCHA_CHAT.get(chat_id)
     if get is None:
         return False
     return get["time"]
