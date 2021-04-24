@@ -75,9 +75,7 @@ async def lel(event, perm):
  settings = sql.get_unmute_time(event.chat_id)
  args = event.pattern_match.group(1)
  if not args:
-  if settings == False:
-   await event.reply("Enable CAPTCHAs First.!")
-  elif settings == 0:
+  if settings == 0:
    await event.reply("Users will stay muted until they use the CAPTCHA.\nTo change the CAPTCHA mute time, try this command again with a time value.\nExample time values: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.")
   elif settings > 0:
     tyme = settings/60
@@ -91,7 +89,7 @@ async def lel(event, perm):
   mutetime = await extract_time(event, args)
   x = sql.set_unmute_time(event.chat_id, mutetime)
   if not x:
-   return await event.replt("Enable captcha first!.")
+   return await event.reply("Enable captcha first!.")
   await event.reply("I will now mute people for {args} when they join - or until they solve the CAPTCHA in the welcome message.")
   
 
@@ -209,7 +207,7 @@ async def lel(event, perm):
     return await event.reply("The welcome kick time can only be between 5 minutes, and 1 day. Please choose another time.")
   x = sql.set_time(event.chat_id, mutetime)
   if not x:
-   return await event.replt("Enable captcha first!.")
+   return await event.reply("Enable captcha first!.")
   await event.reply(f"Welcome kick time has been set to {time}.")
   
 #Soon
