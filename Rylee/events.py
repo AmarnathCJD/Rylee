@@ -70,6 +70,8 @@ import functools
 def is_admin(func):
     @functools.wraps(func)
     async def a_c(event):
+        if event.is_private:
+          return await event.reply("This command is specific to groups")
         is_admin = False
         if not event.is_private:
             try:
