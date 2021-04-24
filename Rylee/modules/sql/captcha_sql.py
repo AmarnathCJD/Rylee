@@ -74,7 +74,7 @@ def set_time(chat_id, time):
 def __load_all_chats():
  global CAPTCHA_CHAT
  captcha = SESSION.query(Captcha).all()
- for x in feds:
+ for x in captcha:
             check = CAPTCHA_CHAT[x.chat_id]
             if check is None:
                 CAPTCHA_CHAT[str(x.chat_id)] = []
