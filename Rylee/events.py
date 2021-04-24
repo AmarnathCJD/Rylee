@@ -71,7 +71,8 @@ def is_admin(func):
     @functools.wraps(func)
     async def a_c(event):
         if event.is_private:
-          return
+          k = await event.reply("This command is made to be used in group chats, not in pm!")
+          return 
         is_admin = False
         if not event.is_private:
             try:
