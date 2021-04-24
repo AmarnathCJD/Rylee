@@ -75,10 +75,7 @@ def __load_all_chats():
  global CAPTCHA_CHAT
  captcha = SESSION.query(Captcha).all()
  for x in captcha:
-            check = CAPTCHA_CHAT[x.chat_id]
-            if check is None:
-                CAPTCHA_CHAT[str(x.chat_id)] = []
-            CAPTCHA_CHAT[str(chat_id)] = {
+            CAPTCHA_CHAT[str(x.chat_id)] = {
                 "mode": x.mode,
                 "time": x.time,
                 "style": x.style,
