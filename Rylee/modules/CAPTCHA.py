@@ -91,7 +91,7 @@ async def lel(event, perm):
   mutetime = await extract_time(event, args)
   if mutetime:
    x = sql.set_unmute_time(event.chat_id, mutetime)
-   await event.reply("I will now mute people for {args} when they join - or until they solve the CAPTCHA in the welcome message.")
+   await event.reply(f"I will now mute people for {args} when they join - or until they solve the CAPTCHA in the welcome message.")
   
 @tbot.on(events.NewMessage(pattern="^[!?/]captchamode ?(.*)"))
 @is_admin
@@ -138,7 +138,7 @@ Available CAPTCHA modes are: button/math/text/multibutton
   await event.reply(text)
  elif args in options:
   style = args
-  text = "CAPTCHA set to **{}**.".format(style)
+  text = "CAPTCHAs set to **{}**.".format(style)
   await event.reply(text)
   x = sql.set_style(event.chat_id, style)
   if not x:
@@ -170,7 +170,13 @@ async def lel(event):
 
 To change this setting, try this command again followed by one of yes/no/on/off""")
    else:
-    await event.reply("""I am currently kicking users that haven't completed the CAPTCHA after 0 seconds
+    tyme = settings/60
+    unit = "Minutes"
+    if tyme >= 60:
+      tyme = tyme/60
+      unit = "Hours"
+    tt = f"{int(tyme)} {unit}"
+    await event.reply(f"""I am currently kicking users that haven't completed the CAPTCHA after {tt}
 
 To change this setting, try this command again followed by one of yes/no/on/off""")
  elif args in optionsp:
