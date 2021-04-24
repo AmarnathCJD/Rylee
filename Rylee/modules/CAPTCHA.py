@@ -182,7 +182,7 @@ async def lel(event, perm):
   if not x:
    await event.replt("Enable captcha first!.")
   
- 
+#Soon
  
   
 
