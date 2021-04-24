@@ -42,6 +42,7 @@ async def lel(event, perm):
          await event.reply("You are missing the following rights to use this command:CanChangeInfo!")
          return
  settings = sql.get_style(event.chat_id)
+ args = event.pattern_match.group(1)
  if not args:
   if settings == False:
    await event.reply("Enable CAPTCHAs First.!")
