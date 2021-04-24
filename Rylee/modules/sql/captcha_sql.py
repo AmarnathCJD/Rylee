@@ -120,6 +120,7 @@ def __load_all_chats():
             CAPTCHA_CHAT[str(x.chat_id)] = {
                 "mode": x.mode,
                 "time": x.time,
+                "ctime": x.ctime,
                 "style": x.style,
         }
 
