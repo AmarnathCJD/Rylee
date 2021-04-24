@@ -87,4 +87,4 @@ Available CAPTCHA modes are: button/math/text/multibutton
   if not x:
    sql.set_captcha(event.chat_id, style)
  else:
-  await event reply("'{}' is not a recognised CAPTCHA mode! Try one of: button/math/text/multibutton".format(args))
+  await event reply(f"'{args}' is not a recognised CAPTCHA mode! Try one of: button/math/text/multibutton")
