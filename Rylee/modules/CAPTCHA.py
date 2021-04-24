@@ -12,7 +12,8 @@ turnoff = ["off", "no", "disable"]
 async def lel(event, perm):
  args = event.pattern_match.group(1)
  avoid = ["kick", "mode", "kicktime"]
- if avoid in args:
+ if args:
+  if args in avoid:
    return
  settings = sql.get_mode(event.chat_id)
  if not args:
