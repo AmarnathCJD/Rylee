@@ -37,7 +37,7 @@ async def extract_time(message, time_val):
 @tbot.on(events.NewMessage(pattern="^[!?/]captcha ?(.*)"))
 async def lel(event):
  args = event.pattern_match.group(1)
- avoid = ["kick", "mode on", "kicktime", "kick", "kick off", "kick yes", "kick on", "kick no", "kick y", "kick n", "mode off", "mode on", "mode y", "mode n", "mode yes", "mode no", "kicktime [0-9]d", "time"]
+ avoid = ["kick", "mode on", "kicktime", "kick", "kick off", "kick yes", "kick on", "kick no", "kick y", "kick n", "mode off", "mode on", "mode y", "mode n", "mode yes", "mode no", "kicktime [0-9]d", "time", "time [0-9]"]
  if args:
   if args in avoid:
    return
@@ -63,8 +63,6 @@ async def lel(event):
   mode = False
   await event.reply("CAPTCHAs have been disabled. Users can join normally.")
   x = sql.set_mode(event.chat_id, mode)
- else:
-  pass
 
 @tbot.on(events.NewMessage(pattern="^[!?/]captchatime ?(.*)"))
 @is_admin
@@ -84,7 +82,7 @@ async def lel(event, perm):
       tyme = tyme/60
       unit = "Hours"
     tt = f"{int(tyme)}{unit}"
-    await event.reply("If users haven't unmuted themselves after {tt}, they will be unmuted automatically.\nTo change the CAPTCHA mute time, try this command again with a time value.\nExample time values: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.")
+    await event.reply(f"If users haven't unmuted themselves after {tt}, they will be unmuted automatically.\nTo change the CAPTCHA mute time, try this command again with a time value.\nExample time values: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.")
  elif args:
   mutetime = await extract_time(event, args)
   x = sql.set_unmute_time(event.chat_id, mutetime)
