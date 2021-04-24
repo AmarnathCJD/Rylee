@@ -26,6 +26,8 @@ async def lel(event, perm):
   mode = True
   await event.reply("CAPTCHAs have been enabled. I will now mute people when they join.")
   x = sql.set_mode(event.chat_id, mode)
+  if not x:
+    sql.set_captcha(event.chat_id, "button")
  elif args in turnoff:
   if not perm.change_info:
          await event.reply("You are missing the following rights to use this command:CanChangeInfo!")
