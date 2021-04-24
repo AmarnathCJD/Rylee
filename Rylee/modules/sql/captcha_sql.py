@@ -1,10 +1,10 @@
 import threading
 from Rylee.modules.sql import BASE, SESSION
-from sqlalchemy import Boolean, Column, Integer, String, UnicodeText
+from sqlalchemy import Boolean, Column, Integer, String, UnicodeText, Numeric
 
 class Captcha(BASE):
-    __tablename__ = "cla"
-    chat_id = Column(String(14), primary_key=True)
+    __tablename__ = "csa"
+    chat_id = Column(Numeric, primary_key=True)
     mode = Column(Boolean)
     time = Column(Integer)
     style = Column(UnicodeText)
