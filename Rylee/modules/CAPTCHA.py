@@ -162,9 +162,8 @@ async def lel(event, perm):
          return
  time = event.pattern_match.group(1)
  if time: mutetime = await extract_time(event, time)
+ settings = sql.get_time(event.chat_id)
  if not time:
-  settings = sql.get_time(event.chat_id)
- if not args:
    if settings == False or settings == 0:
     await event.reply("""Users that don't complete their CAPTCHA are allowed to stay in the chat, muted, and can complete the CAPTCHA whenever.
 
