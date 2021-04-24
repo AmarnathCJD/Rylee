@@ -167,7 +167,7 @@ async def lel(event, perm):
    if settings == False or settings == 0:
     await event.reply("Users that don't complete their CAPTCHA are allowed to stay in the chat, muted, and can complete the CAPTCHA whenever.To change this setting, try this command again followed by one of yes/no/on/off")
    else:
-    await event.reply(f"I am currently kicking users that haven't completed the CAPTCHA after {settings/60} minutes")
+    await event.reply(f"I am currently kicking users that haven't completed the CAPTCHA after {int(settings/60)} minutes")
  if mutetime:
   if mutetime >= 86400 or mutetime < 300:
     return await event.reply("The welcome kick time can only be between 5 minutes, and 1 day. Please choose another time.")
