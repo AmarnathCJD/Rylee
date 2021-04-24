@@ -37,4 +37,11 @@ def set_captcha(chat_id, style):
   SESSION.add(curr)
   SESSION.commit()
   
-#soon
+def set_style(chat_id, style):
+ with C_LOCK:
+  global CAPTCHA_CHAT
+  curr = SESSION.query(Captcha).get(chat_id)
+  if not curr:
+       return False
+  curr.style = style
+  SESSION.commit()
