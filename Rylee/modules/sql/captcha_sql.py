@@ -45,6 +45,7 @@ def set_style(chat_id, style):
    if not curr:
         return False
    curr.style = style
+   SESSION.merge(curr)
    SESSION.commit()
   except Exception as e:
    print(e)
