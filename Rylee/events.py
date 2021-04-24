@@ -70,6 +70,13 @@ import functools
 def is_admin(func):
     @functools.wraps(func)
     async def a_c(event):
+        try:
+         args = event.pattern_match.group(1)
+         avoid = ["kick", "mode", "kicktime"]
+         if avoid in args:
+          return
+        except:
+         pass
         if event.is_private:
           return await event.reply("This command is made to be used in group chats, not in pm!")
         is_admin = False
