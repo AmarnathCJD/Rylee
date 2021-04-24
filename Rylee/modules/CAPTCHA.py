@@ -33,6 +33,8 @@ async def lel(event, perm):
   mode = False
   await event.reply("CAPTCHAs have been disabled. Users can join normally.")
   x = sql.set_mode(event.chat_id, mode)
+ else:
+  await event.reply(f"That isn't a boolean - expected one of y/yes/on or n/no/off; got: {args}")
 
 @tbot.on(events.NewMessage(pattern="^[!?/]captchamode ?(.*)"))
 @is_admin
@@ -77,3 +79,12 @@ Multibutton CAPTCHAs require users to solve a button puzzle
 Available CAPTCHA modes are: button/math/text/multibutton
 """
   await event.reply(text)
+ elif args in options:
+  style = args
+  text = "CAPTCHA set to **{}**.".format(style)
+  await event.reply(text)
+  x = sql.set_style(event.chat_id, style)
+  if not x:
+   sql.set_captcha(event.chat_id, style)
+ else:
+  await event reply("'{}' is not a recognised CAPTCHA mode! Try one of: button/math/text/multibutton".format(args))
