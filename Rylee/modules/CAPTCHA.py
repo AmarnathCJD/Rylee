@@ -130,7 +130,7 @@ async def lel(event):
  optionsp = ["y", "yes", "on"]
  optionsn = ["n", "no", "off"]
  args= event.pattern_match.group(1)
- avoid = ["captchakicktime", "captchakicktime [0-9][mhd]", "captchakicktime [0-9]"]
+ avoid = ["time", "time [0-9]", "time [0-9][hmd]"]
  if args:
   if args in avoid:
    return
