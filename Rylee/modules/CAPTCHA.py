@@ -44,6 +44,7 @@ async def lel(event, perm):
  settings = sql.get_style(event.chat_id)
  args = event.pattern_match.group(1)
  if not args:
+  text = ""
   if settings == False:
    await event.reply("Enable CAPTCHAs First.!")
   elif settings in options:
