@@ -95,11 +95,20 @@ Available CAPTCHA modes are: button/math/text/multibutton
 
 
 @tbot.on(events.NewMessage(pattern="^[!?/]captchakick ?(.*)"))
-@is_admin
-async def lel(event, perm):
+async def lel(event):
+ if event.is_private:
+   return await event.reply("This command is made to be used in group chats, not in pm!")
+ if not await ck_admin(event, event.sender_id):
+   return await event.reply("Only admins can execute this command.")
+ if not await can_change_info(message=event):
+   return await event.reply("You are missing the following rights to use this command:CanChangeInfo!")
  optionsp = ["y", "yes", "on"]
  optionsn = ["n", "no", "off"]
  args= event.pattern_match.group(1)
+ avoid = ["captchakicktime", "captchakicktime [0-9]"]
+ if args:
+  if args in avoid:
+   return
  time = 300
  settings = sql.get_time(event.chat_id)
  if not args:
@@ -119,6 +128,11 @@ To change this setting, try this command again followed by one of yes/no/on/off"
   time = 0
   await event.reply("I will no longer kick people that haven't solved the CAPTCHA.")
  x = sql.set_time(event.chat_id, time)
+
+@tbot.on(events.NewMessage(pattern="^[!?/]captchakicktime ?(.*)"))
+@is_admin
+async def lel(event, perm):
+ 
  
   
 
