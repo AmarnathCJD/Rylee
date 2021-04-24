@@ -1,6 +1,7 @@
 import Rylee.modules.sql.captcha_sql as sql
 from Rylee import tbot, CMD_HELP
 from Rylee.events import is_admin
+from Rylee.Function import can_change_info, ck_admin
 import os
 from telethon import Button, events
 
@@ -8,13 +9,18 @@ turnon = ["on", "yes", "enable"]
 turnoff = ["off", "no", "disable"]
 
 @tbot.on(events.NewMessage(pattern="^[!?/]captcha ?(.*)"))
-@is_admin
-async def lel(event, perm):
+async def lel(event):
  args = event.pattern_match.group(1)
  avoid = ["kick", "mode", "kicktime"]
  if args:
   if args in avoid:
    return
+ if event.is_private:
+   return await event.reply("This command is made to be used in group chats, not in pm!")
+ if not await ck_admin(event, event.sender_id):
+   return await event.reply("Only admins can execute this command.")
+ if not await can_change_info(message=event):
+   return await event.reply("You are missing the following rights to use this command:CanChangeInfo!")
  settings = sql.get_mode(event.chat_id)
  if not args:
   if settings == True:
