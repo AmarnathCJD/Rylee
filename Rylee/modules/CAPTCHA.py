@@ -64,8 +64,7 @@ async def lel(event):
   await event.reply("CAPTCHAs have been disabled. Users can join normally.")
   x = sql.set_mode(event.chat_id, mode)
  else:
-  await event.reply(f"That isn't a boolean - expected one of y/yes/on or n/no/off; got: {args}")
-
+  pass
 @tbot.on(events.NewMessage(pattern="^[!?/]captchamode ?(.*)"))
 @is_admin
 async def lel(event, perm):
